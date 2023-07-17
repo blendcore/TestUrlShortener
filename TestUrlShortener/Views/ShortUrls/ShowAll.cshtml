@@ -1,0 +1,22 @@
+﻿@model IEnumerable<ShortUrl>
+
+<h1 class="mb-5">All Urls</h1>
+<table class="table">
+    @foreach (var item in Model)
+    {
+        var url = new Uri(@item.OriginalUrl);
+        <tr>
+            <td>@item.Id</td>
+            <td><img src="https://@url.Host/favicon.ico" class="favicon-img"/></td>
+            <td>@url.Host</td>
+            <td>
+                <a asp-controller="ShortUrls" asp-action="Show" asp-route-id="@item.Id">
+                    http://localhost:5000/ShortUrls/Show/@item.Id
+                </a>
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger"})
+            </td>
+        </tr>
+    }
+</table>
